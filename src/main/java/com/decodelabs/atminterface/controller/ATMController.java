@@ -9,14 +9,23 @@ import com.decodelabs.atminterface.ui.ConsoleUI;
 	    private final ConsoleUI consoleUI;
 	    private final ATMService atmService;
 	    private final ValidationService validationService;
+	  
 	    
 
-	    public ATMController() {
-	        this.consoleUI = new ConsoleUI();
-	        this.atmService = new ATMService();
-	        this.validationService = new ValidationService();
+	    public ATMController(
+	            ConsoleUI consoleUI,
+	            ATMService atmService,
+	            ValidationService validationService) {
+
+	        this.consoleUI = consoleUI;
+	        this.atmService = atmService;
+	        this.validationService = validationService;
+
 	    }
 
+	    
+	    
+	    
 	    public void start() {
 
 	        consoleUI.showWelcomeMessage();
@@ -76,6 +85,8 @@ import com.decodelabs.atminterface.ui.ConsoleUI;
 	    
 	    
 	    
+	    
+	    
 	    private void handleWithdraw() {
 
 	        double amount = consoleUI.readAmount();
@@ -97,6 +108,9 @@ import com.decodelabs.atminterface.ui.ConsoleUI;
 	        consoleUI.showSuccessMessage("Withdrawal Successful.");
 	    }
 
+	    
+	    
+	    
 	    private void handleCheckBalance() {
 
 	    	 consoleUI.showBalance(
