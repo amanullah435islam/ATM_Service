@@ -1,5 +1,6 @@
 package com.decodelabs.atminterface.ui;
 
+import com.decodelabs.atminterface.constant.AppConstants;
 import com.decodelabs.atminterface.util.InputHelper;
 
 public class ConsoleUI {	    
@@ -61,7 +62,7 @@ public class ConsoleUI {
     public void showInvalidChoiceMessage() {
 
         System.out.println();
-        System.out.println("Invalid Menu Choice.");
+        System.out.println(AppConstants.INVALID_MENU);
     }
 
     
@@ -69,7 +70,7 @@ public class ConsoleUI {
 
         System.out.println();
         System.out.println("=====================================");
-        System.out.println(" Thank You For Using ATM Interface");
+        System.out.println(AppConstants.EXIT_MESSAGE);
         System.out.println("=====================================");
     }
     

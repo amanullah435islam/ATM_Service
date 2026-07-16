@@ -1,6 +1,7 @@
 package com.decodelabs.atminterface.controller;
 
-	import com.decodelabs.atminterface.service.ATMService;
+	import com.decodelabs.atminterface.constant.AppConstants;
+import com.decodelabs.atminterface.service.ATMService;
 import com.decodelabs.atminterface.service.ValidationService;
 import com.decodelabs.atminterface.ui.ConsoleUI;
 
@@ -40,19 +41,19 @@ import com.decodelabs.atminterface.ui.ConsoleUI;
 
 	            switch (choice) {
 
-	                case 1:
+	                case AppConstants.DEPOSIT_OPTION:
 	                    handleDeposit();
 	                    break;
 
-	                case 2:
+	                case AppConstants.WITHDRAW_OPTION:
 	                    handleWithdraw();
 	                    break;
 
-	                case 3:
+	                case AppConstants.BALANCE_OPTION:
 	                    handleCheckBalance();
 	                    break;
 
-	                case 0:
+	                case AppConstants.EXIT_OPTION:
 	                    running = false;
 	                    consoleUI.showExitMessage();
 	                    break;
@@ -72,14 +73,14 @@ import com.decodelabs.atminterface.ui.ConsoleUI;
 	        
 	        if (!validationService.isValidAmmount(amount)) {
 	        	
-	        	consoleUI.showErrorMessage("Invalid amount.");
+	        	consoleUI.showErrorMessage(AppConstants.INVALID_AMOUNT);
 	        	
 	        	return;
 			}
 	        
 	        atmService.deposit(amount);
 	        
-	        consoleUI.showSuccessMessage("Deposit Successful.");
+	        consoleUI.showSuccessMessage(AppConstants.DEPOSIT_SUCCESS);
 	    }
 
 	    
@@ -93,19 +94,19 @@ import com.decodelabs.atminterface.ui.ConsoleUI;
 	        
 	        if (!validationService.isValidAmmount(amount)) {
 				
-	        	consoleUI.showErrorMessage("Invalid amount.");
+	        	consoleUI.showErrorMessage(AppConstants.INVALID_AMOUNT);
 	        	
 	        	return;
 			}
 	        
 	        if (!validationService.hasSufficientBalance(atmService.getBankAccount(), amount)) {
 				
-	        	consoleUI.showErrorMessage("Insufficient Balance.");
+	        	consoleUI.showErrorMessage(AppConstants.INSUFFICIENT_BALANCE);
 			}
 	        
 	        atmService.withdraw(amount);
 	        
-	        consoleUI.showSuccessMessage("Withdrawal Successful.");
+	        consoleUI.showSuccessMessage(AppConstants.WITHDRAW_SUCCESS);
 	    }
 
 	    

@@ -103,6 +103,30 @@ InputHelper :
 +---------------------------------------------+
 
 
+🏗 UML
+AppConstants :
+
++----------------------------------------+
+|            AppConstants                |
++----------------------------------------+
+| + DEFAULT_ACCOUNT_NAME                 |
+| + INITIAL_BALANCE                      |
+| + EXIT_OPTION                          |
+| + DEPOSIT_OPTION                       |
+| + WITHDRAW_OPTION                      |
+| + BALANCE_OPTION                       |
+| + MIN_TRANSACTION_AMOUNT               |
+| + DEPOSIT_SUCCESS                      |
+| + WITHDRAW_SUCCESS                     |
+| + INVALID_AMOUNT                       |
+| + INSUFFICIENT_BALANCE                 |
+| + INVALID_MENU                         |
+| + APP_TITLE                            |
+| + EXIT_MESSAGE                         |
++----------------------------------------+
+
+
+
 
 
 1️⃣ Overall System Flow : 

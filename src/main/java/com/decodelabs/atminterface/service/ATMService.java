@@ -1,5 +1,6 @@
 package com.decodelabs.atminterface.service;
 
+import com.decodelabs.atminterface.constant.AppConstants;
 import com.decodelabs.atminterface.model.BankAccount;
 
 public class ATMService {
@@ -9,7 +10,12 @@ public class ATMService {
 
 	 
 	    public ATMService() {
-	        this.bankAccount = new BankAccount("Demo User", 1000.00);
+	        this.bankAccount = new BankAccount(
+	        		
+	        		AppConstants.DEFAULT_ACCOUNT_NAME,
+	        		AppConstants.INITIAL_BALANCE
+	        		
+	        		);
 	    }
 
 	    
