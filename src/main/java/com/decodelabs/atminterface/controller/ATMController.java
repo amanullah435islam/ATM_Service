@@ -1,6 +1,7 @@
 package com.decodelabs.atminterface.controller;
 
 	import com.decodelabs.atminterface.constant.AppConstants;
+import com.decodelabs.atminterface.exception.ATMException;
 import com.decodelabs.atminterface.service.ATMService;
 import com.decodelabs.atminterface.service.ValidationService;
 import com.decodelabs.atminterface.ui.ConsoleUI;
@@ -104,9 +105,28 @@ import com.decodelabs.atminterface.ui.ConsoleUI;
 	        	consoleUI.showErrorMessage(AppConstants.INSUFFICIENT_BALANCE);
 			}
 	        
-	        atmService.withdraw(amount);
+//	        atmService.withdraw(amount);	        
+//	        consoleUI.showSuccessMessage(AppConstants.WITHDRAW_SUCCESS);
+   
 	        
-	        consoleUI.showSuccessMessage(AppConstants.WITHDRAW_SUCCESS);
+	        try {
+
+	            atmService.withdraw(amount);
+
+	            consoleUI.showSuccessMessage(
+	                    AppConstants.WITHDRAW_SUCCESS
+	            );
+
+	        }
+	        catch (ATMException ex) {
+
+	            consoleUI.showErrorMessage(
+
+	                    ex.getMessage()
+
+	            );
+
+	        }
 	    }
 
 	    

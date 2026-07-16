@@ -1,6 +1,8 @@
 package com.decodelabs.atminterface.service;
 
 import com.decodelabs.atminterface.constant.AppConstants;
+import com.decodelabs.atminterface.exception.InsufficientBalanceException;
+import com.decodelabs.atminterface.exception.InvalidAmountException;
 import com.decodelabs.atminterface.model.BankAccount;
 
 public class ATMService {
@@ -22,18 +24,32 @@ public class ATMService {
 	    
 	    
 	    public void deposit(double amount) {
+   
+	    if (amount < AppConstants.MIN_TRANSACTION_AMOUNT) {
 
-	    double currentBalance = bankAccount.getBalance();
-	    currentBalance += amount;
-	    bankAccount.setBalance(currentBalance);
-	       
+	        throw new InvalidAmountException(
+	                AppConstants.INVALID_AMOUNT
+	        );
+
+	    }
+
+	    bankAccount.setBalance(
+
+	            bankAccount.getBalance()+amount
+
+	    );
+	    
+
 	    }
 	
 	
 	public boolean withdraw(double amount) {
 		
 		if (amount > bankAccount.getBalance()) {
-			return false;
+			
+			throw new InsufficientBalanceException(
+	                AppConstants.INSUFFICIENT_BALANCE
+			        );
 		}
 		
 		double currentBalnce = bankAccount.getBalance();
