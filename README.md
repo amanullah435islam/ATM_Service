@@ -126,7 +126,38 @@ AppConstants :
 +----------------------------------------+
 
 
+📋 UML
+Update ConsoleUI
 
++--------------------------------------+
+|             ConsoleUI                |
++--------------------------------------+
+| + showWelcomeMessage()               |
+| + showMenu()                         |
+| + readMenuChoice()                   |
+| + readAmount()                       |
+| + showBalance()                      |
+| + showSuccessMessage()               |
+| + showErrorMessage()                 |
+| + showExitMessage()                  |
++--------------------------------------+
+
+
+🏗 UML
+update controller :
+
++------------------------------------------------+
+|               ATMController                    |
++------------------------------------------------+
+| - consoleUI : ConsoleUI                        |
+| - atmService : ATMService                      |
++------------------------------------------------+
+| + start()                                     |
+| - handleDeposit()                             |
+| - handleWithdraw()                            |
+| - handleBalance()                             |
+| - executeTransaction(Runnable)                |
++------------------------------------------------+
 
 
 1️⃣ Overall System Flow : 

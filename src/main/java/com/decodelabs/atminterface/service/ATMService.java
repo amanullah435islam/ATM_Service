@@ -7,72 +7,75 @@ import com.decodelabs.atminterface.model.BankAccount;
 
 public class ATMService {
 
-	
-	 	private final BankAccount bankAccount;
+    private final BankAccount bankAccount;
 
-	 
-	    public ATMService() {
-	        this.bankAccount = new BankAccount(
-	        		
-	        		AppConstants.DEFAULT_ACCOUNT_NAME,
-	        		AppConstants.INITIAL_BALANCE
-	        		
-	        		);
-	    }
+    public ATMService(BankAccount bankAccount) {
 
-	    
-	    
-	    
-	    public void deposit(double amount) {
-   
-	    if (amount < AppConstants.MIN_TRANSACTION_AMOUNT) {
+        this.bankAccount = bankAccount;
 
-	        throw new InvalidAmountException(
-	                AppConstants.INVALID_AMOUNT
-	        );
+    }
 
-	    }
+    public void deposit(double amount) {
 
-	    bankAccount.setBalance(
+        validateAmount(amount);
 
-	            bankAccount.getBalance()+amount
+        bankAccount.setBalance(
 
-	    );
-	    
+                bankAccount.getBalance() + amount
 
-	    }
-	
-	
-	public boolean withdraw(double amount) {
-		
-		if (amount > bankAccount.getBalance()) {
-			
-			throw new InsufficientBalanceException(
-	                AppConstants.INSUFFICIENT_BALANCE
-			        );
-		}
-		
-		double currentBalnce = bankAccount.getBalance();
-		currentBalnce -= amount;
-		bankAccount.setBalance(currentBalnce);
-		
-		return true;
-	};
-	
-	
-	
-	
-	public double checkBalance() {
-		
-		return bankAccount.getBalance();
-	};
-	
-	public BankAccount getBankAccount() {
-		
-		return bankAccount;
-	}
+        );
+
+    }
+
+    public void withdraw(double amount) {
+
+        validateAmount(amount);
+
+        if (amount > bankAccount.getBalance()) {
+
+            throw new InsufficientBalanceException(
+
+                    AppConstants.INSUFFICIENT_BALANCE
+
+            );
+
+        }
+
+        bankAccount.setBalance(
+
+                bankAccount.getBalance() - amount
+
+        );
+
+    }
+
+    public double checkBalance() {
+
+        return bankAccount.getBalance();
+
+    }
+
+    public BankAccount getBankAccount() {
+
+        return bankAccount;
+
+    }
+
+    private void validateAmount(double amount) {
+
+        if (amount < AppConstants.MIN_TRANSACTION_AMOUNT) {
+
+            throw new InvalidAmountException(
+
+                    AppConstants.INVALID_AMOUNT
+
+            );
+
+        }
+
+    }
+
 }
-
 
 
 

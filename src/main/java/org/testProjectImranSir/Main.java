@@ -1,8 +1,9 @@
 package org.testProjectImranSir;
 
+import com.decodelabs.atminterface.constant.AppConstants;
 import com.decodelabs.atminterface.controller.ATMController;
+import com.decodelabs.atminterface.model.BankAccount;
 import com.decodelabs.atminterface.service.ATMService;
-import com.decodelabs.atminterface.service.ValidationService;
 import com.decodelabs.atminterface.ui.ConsoleUI;
 
 public class Main {
@@ -12,16 +13,21 @@ public class Main {
 		  
 	        ConsoleUI consoleUI = new ConsoleUI();
 
-	        ATMService atmService = new ATMService();
+	        BankAccount bankAccount =
+	        		
+	                new BankAccount(
+	                		AppConstants.DEFAULT_ACCOUNT_NAME,
+	    	        		AppConstants.INITIAL_BALANCE
+	    	        		);
 
-	        ValidationService validationService =
-	                new ValidationService();
+	        ATMService atmService = new ATMService(bankAccount);
+
 
 	        ATMController controller =
 	                new ATMController(
 	                        consoleUI,
-	                        atmService,
-	                        validationService
+	                        atmService
+	                      
 	                );
 	        
 	        

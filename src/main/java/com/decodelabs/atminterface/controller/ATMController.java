@@ -1,148 +1,115 @@
 package com.decodelabs.atminterface.controller;
 
-	import com.decodelabs.atminterface.constant.AppConstants;
+import com.decodelabs.atminterface.constant.AppConstants;
 import com.decodelabs.atminterface.exception.ATMException;
 import com.decodelabs.atminterface.service.ATMService;
-import com.decodelabs.atminterface.service.ValidationService;
 import com.decodelabs.atminterface.ui.ConsoleUI;
 
-	public class ATMController {
+public class ATMController {
 
-	    private final ConsoleUI consoleUI;
-	    private final ATMService atmService;
-	    private final ValidationService validationService;
-	  
-	    
+    private final ConsoleUI consoleUI;
+    private final ATMService atmService;
 
-	    public ATMController(
-	            ConsoleUI consoleUI,
-	            ATMService atmService,
-	            ValidationService validationService) {
+    public ATMController(ConsoleUI consoleUI,
+                         ATMService atmService) {
 
-	        this.consoleUI = consoleUI;
-	        this.atmService = atmService;
-	        this.validationService = validationService;
+        this.consoleUI = consoleUI;
+        this.atmService = atmService;
+    }
 
-	    }
+    public void start() {
 
-	    
-	    
-	    
-	    public void start() {
+        consoleUI.showWelcomeMessage();
 
-	        consoleUI.showWelcomeMessage();
+        boolean running = true;
 
-	        boolean running = true;
+        while (running) {
 
-	        while (running) {
+            consoleUI.showMenu();
 
-	            consoleUI.showMenu();
+            int choice = consoleUI.readMenuChoice();
 
-	            int choice = consoleUI.readMenuChoice();
+            switch (choice) {
 
-	            switch (choice) {
+                case AppConstants.DEPOSIT_OPTION ->
+                        handleDeposit();
 
-	                case AppConstants.DEPOSIT_OPTION:
-	                    handleDeposit();
-	                    break;
+                case AppConstants.WITHDRAW_OPTION ->
+                        handleWithdraw();
 
-	                case AppConstants.WITHDRAW_OPTION:
-	                    handleWithdraw();
-	                    break;
+                case AppConstants.BALANCE_OPTION ->
+                        handleBalance();
 
-	                case AppConstants.BALANCE_OPTION:
-	                    handleCheckBalance();
-	                    break;
+                case AppConstants.EXIT_OPTION -> {
 
-	                case AppConstants.EXIT_OPTION:
-	                    running = false;
-	                    consoleUI.showExitMessage();
-	                    break;
+                    consoleUI.showExitMessage();
 
-	                default:
-	                    consoleUI.showInvalidChoiceMessage();
-	            }
-	        }
-	    }
+                    running = false;
+                }
 
-	    
-	    
-	    
-	    private void handleDeposit() {
+                default ->
+                        consoleUI.showErrorMessage(
+                                AppConstants.INVALID_MENU);
+            }
+        }
+    }
 
-	        double amount = consoleUI.readAmount();
-	        
-	        if (!validationService.isValidAmmount(amount)) {
-	        	
-	        	consoleUI.showErrorMessage(AppConstants.INVALID_AMOUNT);
-	        	
-	        	return;
-			}
-	        
-	        atmService.deposit(amount);
-	        
-	        consoleUI.showSuccessMessage(AppConstants.DEPOSIT_SUCCESS);
-	    }
+    private void handleDeposit() {
 
-	    
-	    
-	    
-	    
-	    
-	    private void handleWithdraw() {
+        executeTransaction(() -> {
 
-	        double amount = consoleUI.readAmount();
-	        
-	        if (!validationService.isValidAmmount(amount)) {
-				
-	        	consoleUI.showErrorMessage(AppConstants.INVALID_AMOUNT);
-	        	
-	        	return;
-			}
-	        
-	        if (!validationService.hasSufficientBalance(atmService.getBankAccount(), amount)) {
-				
-	        	consoleUI.showErrorMessage(AppConstants.INSUFFICIENT_BALANCE);
-			}
-	        
-//	        atmService.withdraw(amount);	        
-//	        consoleUI.showSuccessMessage(AppConstants.WITHDRAW_SUCCESS);
-   
-	        
-	        try {
+            double amount = consoleUI.readAmount();
 
-	            atmService.withdraw(amount);
+            atmService.deposit(amount);
 
-	            consoleUI.showSuccessMessage(
-	                    AppConstants.WITHDRAW_SUCCESS
-	            );
+            consoleUI.showSuccessMessage(
+                    AppConstants.DEPOSIT_SUCCESS);
 
-	        }
-	        catch (ATMException ex) {
+        });
 
-	            consoleUI.showErrorMessage(
+    }
 
-	                    ex.getMessage()
+    private void handleWithdraw() {
 
-	            );
+        executeTransaction(() -> {
 
-	        }
-	    }
+            double amount = consoleUI.readAmount();
 
-	    
-	    
-	    
-	    private void handleCheckBalance() {
+            atmService.withdraw(amount);
 
-	    	 consoleUI.showBalance(
+            consoleUI.showSuccessMessage(
+                    AppConstants.WITHDRAW_SUCCESS);
 
-	    	            atmService.checkBalance()
+        });
 
-	    	    );
-	    }
-	    
+    }
 
-	}
-	
-	
+    private void handleBalance() {
 
+        consoleUI.showBalance(
+
+                atmService.checkBalance()
+
+        );
+
+    }
+
+    private void executeTransaction(Runnable action) {
+
+        try {
+
+            action.run();
+
+        } catch (ATMException ex) {
+
+            consoleUI.showErrorMessage(
+
+                    ex.getMessage()
+
+            );
+
+        }
+
+    }
+
+}

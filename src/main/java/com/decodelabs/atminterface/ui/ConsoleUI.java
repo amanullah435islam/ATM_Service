@@ -9,39 +9,44 @@ public class ConsoleUI {
 
         System.out.println();
         System.out.println("=====================================");
-        System.out.println("      WELCOME TO ATM INTERFACE");
+        System.out.println("       " + AppConstants.APP_TITLE);
         System.out.println("=====================================");
     }
     
     
     public void showMenu() {
 
-        System.out.println();
-        System.out.println("========== ATM MENU ==========");
         System.out.println("1. Deposit Money");
         System.out.println("2. Withdraw Money");
         System.out.println("3. Check Balance");
-        System.out.println("0. Exit");
-        System.out.println("==============================");
+        System.out.println("0. Exit");     
     }
     
     
     public int readMenuChoice() {
 
-        return InputHelper.readInt("Enter your choice : ");
+    	 return InputHelper.readInt(
+                 "Enter your choice : "
+         );
+
     }
     
     
     public double readAmount() {
 
-        return InputHelper.readDouble("Enter amount : ");
+    	 return InputHelper.readDouble(
+                 "Enter amount : "
+         );
+
     }
     
     
     public void showBalance(double balance) {
 
-        System.out.println();
-        System.out.println("Current Balance : " + balance);
+    	 System.out.printf(
+                 "%nCurrent Balance : %.2f%n",
+                 balance
+         );
     }
     
     
@@ -68,10 +73,10 @@ public class ConsoleUI {
     
     public void showExitMessage() {
 
-        System.out.println();
-        System.out.println("=====================================");
-        System.out.println(AppConstants.EXIT_MESSAGE);
-        System.out.println("=====================================");
+    	  System.out.println();
+          System.out.println(
+                  AppConstants.EXIT_MESSAGE
+          );
     }
     
 }
