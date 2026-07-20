@@ -1,555 +1,217 @@
-Process Secuence:
-
-
-                        Main
-                        │
-                        ▼
-                        ATMController
-                        │
-                        ▼
-                        ConsoleUI
+# 🏧 ATM Interface
+
+A professional **Core Java Console Application** that simulates basic ATM operations using **Object-Oriented Programming (OOP)** principles and a **Layered Architecture**. The project demonstrates clean code practices, exception handling, SOLID principles, and is designed to be easily migrated to **Spring Boot REST API**.
+
+---
+
+## 📌 Project Overview
+
+The ATM Interface application allows users to perform common banking operations through a console-based menu. It focuses on clean architecture, separation of concerns, and maintainable code.
+
+---
+
+## ✨ Features
+
+* 💰 Deposit Money
+* 💸 Withdraw Money
+* 💳 Check Account Balance
+* ❌ Exit Application
+* ⚠️ Custom Exception Handling
+* 🧩 Layered Architecture
+* 🏗️ SOLID Principles
+* 📦 Reusable Constants
+* 🛡️ Input Validation
+* 🔄 Constructor Injection Ready
+* 🚀 Spring Boot Migration Ready
+
+---
+
+## 🛠️ Technologies Used
+
+* Java 21
+* Eclipse IDE
+* Object-Oriented Programming (OOP)
+* Collections Framework
+* Exception Handling
+* Layered Architecture
+* Clean Code Principles
+
+---
+
+## 📂 Project Structure
+
+```text
+src
+└── main
+    └── java
+        └── com.decodelabs.atminterface
+            ├── controller
+            │     └── ATMController.java
+            │
+            ├── service
+            │     └── ATMService.java
+            │
+            ├── model
+            │     └── BankAccount.java
+            │
+            ├── ui
+            │     └── ConsoleUI.java
+            │
+            ├── util
+            │     └── InputHelper.java
+            │
+            ├── constant
+            │     └── AppConstants.java
+            │
+            ├── exception
+            │     ├── ATMException.java
+            │     ├── InvalidAmountException.java
+            │     └── InsufficientBalanceException.java
+            │
+            ├── validation
+            │     └── ValidationService.java
+            │
+            └── Main.java
+```
+
+---
+
+## 🏛️ Project Architecture
+
+```text
+User
+ │
+ ▼
+ConsoleUI
+ │
+ ▼
+ATMController
+ │
+ ▼
+ATMService
+ │
+ ▼
+BankAccount
+```
+
+---
+
+## ⚙️ Functional Flow
+
+```text
+Start Application
+        │
+        ▼
+ Display Welcome Screen
+        │
+        ▼
+     Show Menu
+        │
+        ▼
+User Selects Operation
+        │
+        ├──────── Deposit
+        ├──────── Withdraw
+        ├──────── Check Balance
+        └──────── Exit
+```
 
-                        Read Choice
+---
 
-                        ↓
-
-                        ATMService
-
-                        ↓
-
-                        Result
-
-                        ↓
-
-                        ConsoleUI
-
-🏗 UML
-Model :
-
-+----------------------------------+
-|          BankAccount             |
-+----------------------------------+
-| - accountHolderName : String     |
-| - balance : double               |
-+----------------------------------+
-| + BankAccount()                  |
-| + BankAccount(name, balance)     |
-| + getAccountHolderName()         |
-| + setAccountHolderName()         |
-| + getBalance()                   |
-| + setBalance()                   |
-+----------------------------------+
-
-
-
-🏗 UML
-Service :
-
-+------------------------------------+
-|            ATMService              |
-+------------------------------------+
-| - bankAccount : BankAccount        |
-+------------------------------------+
-| + deposit(amount)                  |
-| + withdraw(amount) : boolean       |
-| + checkBalance() : double          |
-| + getBankAccount()                 |
-+------------------------------------+
-
-
-🏗 UML
-Service :
-
-+------------------------------------------+
-|          ValidationService               |
-+------------------------------------------+
-| + isValidAmount(amount) : boolean        |
-| + hasSufficientBalance(...) : boolean    |
-+------------------------------------------+
-
-
-
-🏗 UML
-UI :
-
-+--------------------------------------+
-|             ConsoleUI                |
-+--------------------------------------+
-| - scanner : Scanner                  |
-+--------------------------------------+
-| + showWelcomeMessage()               |
-| + showMenu()                         |
-| + readMenuChoice() : int             |
-| + readAmount() : double              |
-| + showBalance(double)                |
-| + showSuccessMessage(String)         |
-| + showErrorMessage(String)           |
-| + showInvalidChoiceMessage()         |
-| + showExitMessage()                  |
-+--------------------------------------+
-
-
-🏗 UML
-InputHelper :
-
-+---------------------------------------------+
-|              InputHelper                    |
-+---------------------------------------------+
-| - SCANNER : Scanner                         |
-+---------------------------------------------+
-| + readInt(String) : int                     |
-| + readDouble(String) : double               |
-| + readString(String) : String               |
-+---------------------------------------------+
-
-
-🏗 UML
-AppConstants :
-
-+----------------------------------------+
-|            AppConstants                |
-+----------------------------------------+
-| + DEFAULT_ACCOUNT_NAME                 |
-| + INITIAL_BALANCE                      |
-| + EXIT_OPTION                          |
-| + DEPOSIT_OPTION                       |
-| + WITHDRAW_OPTION                      |
-| + BALANCE_OPTION                       |
-| + MIN_TRANSACTION_AMOUNT               |
-| + DEPOSIT_SUCCESS                      |
-| + WITHDRAW_SUCCESS                     |
-| + INVALID_AMOUNT                       |
-| + INSUFFICIENT_BALANCE                 |
-| + INVALID_MENU                         |
-| + APP_TITLE                            |
-| + EXIT_MESSAGE                         |
-+----------------------------------------+
+## 🧠 OOP Concepts Used
 
+* Encapsulation
+* Abstraction
+* Constructor Injection
+* Composition
+* Single Responsibility Principle (SRP)
+* DRY (Don't Repeat Yourself)
+* Clean Architecture
 
-📋 UML
-Update ConsoleUI
-
-+--------------------------------------+
-|             ConsoleUI                |
-+--------------------------------------+
-| + showWelcomeMessage()               |
-| + showMenu()                         |
-| + readMenuChoice()                   |
-| + readAmount()                       |
-| + showBalance()                      |
-| + showSuccessMessage()               |
-| + showErrorMessage()                 |
-| + showExitMessage()                  |
-+--------------------------------------+
+---
 
+## ⚠️ Exception Handling
 
-🏗 UML
-update controller :
+Custom Exceptions are implemented for better error handling.
 
-+------------------------------------------------+
-|               ATMController                    |
-+------------------------------------------------+
-| - consoleUI : ConsoleUI                        |
-| - atmService : ATMService                      |
-+------------------------------------------------+
-| + start()                                     |
-| - handleDeposit()                             |
-| - handleWithdraw()                            |
-| - handleBalance()                             |
-| - executeTransaction(Runnable)                |
-+------------------------------------------------+
+* ATMException
+* InvalidAmountException
+* InsufficientBalanceException
 
+---
 
-1️⃣ Overall System Flow : 
+## 📈 Future Enhancements
 
+* User Authentication (PIN Verification)
+* Multiple Bank Accounts
+* Money Transfer
+* Transaction History
+* Database Integration (MySQL)
+* Spring Boot REST API
+* Spring Security + JWT
+* Angular / React Frontend
+* Docker Deployment
 
-                                                START
-                                                │
-                                                ▼
-                                        Initialize Bank Account
-                                                │
-                                                ▼
-                                        Display ATM Menu
-                                                │
-                                                ▼
-                                        Read User Choice
-                                                │
-                                ┌───────────────┼───────────────┐
-                                │               │               │
-                                ▼               ▼               ▼
-                                Deposit         Withdraw      Check Balance
-                                │               │               │
-                                └───────────────┼───────────────┘
-                                                │
-                                                ▼
-                                        Show Result
-                                                │
-                                                ▼
-                                        Return to Menu?
-                                                │
-                                        Yes ─────┘
-                                                │
-                                        No (Exit)
-                                                ▼
-                                                END
+---
 
+## ▶️ How to Run
 
+1. Clone the repository.
 
+```bash
+git clone <repository-url>
+```
 
+2. Open the project in Eclipse or IntelliJ IDEA.
 
+3. Compile the project.
 
+4. Run the `Main.java` file.
 
+5. Use the console menu to perform ATM operations.
 
+---
 
-2️⃣ Deposit Flow :
+## 📸 Sample Console Output
 
+```text
+==================================
+        ATM Interface
+==================================
 
-                                User
+1. Deposit Money
+2. Withdraw Money
+3. Check Balance
+0. Exit
 
-                                ↓
+Enter your choice:
+```
 
-                                Select Deposit
+---
 
-                                ↓
+## 🎯 Learning Outcomes
 
-                                Enter Amount
+This project demonstrates understanding of:
 
-                                ↓
+* Core Java Programming
+* Object-Oriented Design
+* Layered Architecture
+* SOLID Principles
+* Exception Handling
+* Clean Code Practices
+* Professional Project Structure
+* Spring Boot Migration Preparation
 
-                                Validate Amount
+---
 
-                                ↓
+## 👨‍💻 Developed By
 
-                                Valid?
-                                │
-                                ├── No
-                                │      ↓
-                                │  Show Error
-                                │      ↓
-                                │  Back to Menu
-                                │
-                                └── Yes
-                                ↓
-                                Deposit Money
-                                ↓
-                                Update Balance
-                                ↓
-                                Success Message
-                                ↓
-                                Back to Menu
+**Md. Amanullah Islam**
 
+Software Developer | Java & Spring Boot Enthusiast
 
+---
 
+## 📄 License
 
-
-
-
-3️⃣ Withdraw Flow :
-
-
-                                User
-
-                                ↓
-
-                                Select Withdraw
-
-                                ↓
-
-                                Enter Amount
-
-                                ↓
-
-                                Validate Amount
-
-                                ↓
-
-                                Valid?
-                                │
-                                ├── No
-                                │      ↓
-                                │  Invalid Amount
-                                │      ↓
-                                │  Back to Menu
-                                │
-                                └── Yes
-                                ↓
-                                Check Balance
-                                │
-                                ▼
-                                Enough Balance?
-                                │
-                                ├── No
-                                │      ↓
-                                │ Insufficient Balance
-                                │      ↓
-                                │ Back to Menu
-                                │
-                                └── Yes
-                                ↓
-                                Withdraw Money
-                                ↓
-                                Update Balance
-                                ↓
-                                Success Message
-                                ↓
-                                Back to Menu
-
-
-
-
-
-
-4️⃣ Balance Inquiry Flow :
-
-
-                                User
-
-                                ↓
-
-                                Select Check Balance
-
-                                ↓
-
-                                Read Current Balance
-
-                                ↓
-
-                                Display Balance
-
-                                ↓
-
-                                Back to Menu
-
-
-
-
-
-
-
-5️⃣ Exit Flow :
-
-
-                                User
-
-                                ↓
-
-                                Select Exit
-
-                                ↓
-
-                                Display
-
-                                Thank You
-
-                                ↓
-
-                                Close Application
-
-
-
-
-
-
-6️⃣ Invalid Menu Flow(when user put wrong number) :
-
-
-                                Display Menu
-
-                                ↓
-
-                                Read Choice
-
-                                ↓
-
-                                Choice Valid?
-
-                                │
-
-                                ├── Yes
-                                │      ↓
-                                │ Execute Operation
-                                │
-                                └── No
-                                ↓
-                                Show
-
-                                Invalid Choice
-
-                                ↓
-
-                                Display Menu Again
-
-
-
-
-
-
-7️⃣ Complete Activity Flow :
-
-                                                START
-                                                │
-                                                ▼
-                                        Create Bank Account
-                                                │
-                                                ▼
-                                        Display Menu
-                                                │
-                                                ▼
-                                        Read User Choice
-                                                │
-                                ┌──────────┬───────────┬───────────┬──────────┐
-                                ▼          ▼           ▼           ▼
-                                Deposit   Withdraw   Balance      Exit
-                                │          │           │           │
-                                ▼          ▼           ▼           ▼
-                                Validation Validation Display   Thank You
-                                │          │           │           │
-                                ▼          ▼           ▼           ▼
-                                Update    Update      Return      END
-                                Balance   Balance
-                                │          │
-                                └──────┬───┘
-                                        ▼
-                                Return to Menu
-
-
-
-
-
-
-🔄 Controller Flow(how to work in controller by project) :
-
-
-                                Console UI
-
-                                ↓
-
-                                ATM Controller
-
-                                ↓
-
-                                Validation Service
-
-                                ↓
-
-                                ATM Service
-
-                                ↓
-
-                                Bank Account
-
-                                ↓
-
-                                Console UI
-
-
-
-
-
-
-
-📋 Business Flow :
-
-                                Input
-
-                                ↓
-
-                                Validation
-
-                                ↓
-
-                                Business Logic
-
-                                ↓
-
-                                Update Data
-
-                                ↓
-
-                                Output
-
-
-
-
-
-
-⭐ Professional Improvement(Next steep) :
-
-                                HTTP Request
-
-                                ↓
-
-                                REST Controller
-
-                                ↓
-
-                                Service
-
-                                ↓
-
-                                Repository
-
-                                ↓
-
-                                Database
-
-                                ↓
-
-                                Response
-
-
-
-
-
-
-
-
-🎯 UML (Simplified) :
-
-
-                                +--------------------+
-                                |    BankAccount     |
-                                +--------------------+
-                                | accountHolderName  |
-                                | balance            |
-                                +--------------------+
-                                | deposit()          |
-                                | withdraw()         |
-                                | getBalance()       |
-                                +--------------------+
-
-                                        ▲
-                                        │
-                                        │ uses
-                                        │
-
-                                +--------------------+
-                                |    ATMService      |
-                                +--------------------+
-                                | deposit()          |
-                                | withdraw()         |
-                                | checkBalance()     |
-                                +--------------------+
-
-                                        ▲
-                                        │
-
-                                +--------------------+
-                                | ATMController      |
-                                +--------------------+
-                                | start()            |
-                                | processMenu()      |
-                                | handleDeposit()    |
-                                | handleWithdraw()   |
-                                +--------------------+
-
-                                        ▲
-                                        │
-
-                                +--------------------+
-                                |     ConsoleUI      |
-                                +--------------------+
-                                | showMenu()         |
-                                | readChoice()       |
-                                | showMessage()      |
-                                +--------------------+
+This project is created for educational purposes as part of the **DecodeLabs Java Development Program**.
